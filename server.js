@@ -23,8 +23,45 @@ app.engine('liquid', engine.express());
 // Let op: de browser kan deze bestanden niet rechtstreeks laden (zoals voorheen met HTML bestanden)
 app.set('views', './views')
 
+app.get('/', async function (request, response) {
+  const vacatureResponse = await fetch('https://fdnd-agency.directus.app/items/dda_agencies_vacancies')
+  const vacatureResponseJSON = await vacatureResponse.json();
 
-console.log('Let op: Er zijn nog geen routes. Voeg hier dus eerst jouw GET en POST routes toe.')
+   response.render('index.liquid', { vacatures: vacatureResponseJSON.data })
+})
+
+app.get('/vacature/:id', async function (request, response) {
+  const vacatureId = request.params.id;
+  const vacatureResponse = await fetch(`https://fdnd-agency.directus.app/items/dda_agencies_vacancies/?filter={"id":"${vacatureId}"}`);
+  const vacatureResponseJSON = await vacatureResponse.json();
+  
+   response.render('vacature.liquid', { vacatures: vacatureResponseJSON.data })
+});
+
+
+app.get('/toevoegen', async function (request, response) {
+  const vacatureResponse = await fetch('https://fdnd-agency.directus.app/items/dda_agencies_vacancies'+request.params.id)
+  const vacatureResponseJSON = await vacatureResponse.json();
+
+   response.render('toevoegen.liquid', { vacatures: vacatureResponseJSON.data })
+})
+
+
+
+
+app.post('/toevoegen', async function (request, response)  {
+  const { title, locatie, hours } = request.body;
+
+  // Send the data to the API
+  await fetch('https://fdnd-agency.directus.app/items/dda_agencies_vacancies', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ title, locatie, hours })
+  });
+
+  response.send('Vacature added!');
+});
+
 
 /*
 // Zie https://expressjs.com/en/5x/api.html#app.get.method over app.get()
@@ -71,4 +108,8 @@ app.set('port', process.env.PORT || 8000)
 app.listen(app.get('port'), function () {
   // Toon een bericht in de console
   console.log(`Daarna kun je via http://localhost:${app.get('port')}/ jouw interactieve website bekijken.\n\nThe Web is for Everyone. Maak mooie dingen 🙂`)
+})
+
+app.use((req, res, next) => {
+  res.status(404).render("404.liquid")
 })

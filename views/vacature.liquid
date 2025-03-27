@@ -1,0 +1,22 @@
+{% render 'partials/head.liquid' %}
+
+    <section>
+        <a href="">← TERUG NAAR HOME</a>
+
+        <h1>VACATURES</h1>
+        <p>Verslim je carrière bij de beste digitale bureaus van Nederland. Pak je rol als developer of designer, researcher, als scrum master of marketeer, als strateeg. Start of groei door – en laat zien wat je kan.</p>
+    </section>
+
+</header>
+
+
+{% for vacature in vacatures %}
+
+    <h2>{{ vacature.title }}</h2>
+    <p>{{ vacature.locatie }}</p>
+    <p>{{ vacature.description }}</p>
+
+{% endfor %}
+
+{% render 'partials/foot.liquid' %}
+
