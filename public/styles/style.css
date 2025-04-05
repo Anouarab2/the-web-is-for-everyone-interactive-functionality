@@ -30,17 +30,39 @@ h1{
 }
 
 header{
+    position: sticky;
+    top: 0;
 
     nav{
         border-bottom: .07em solid black;
         padding-block: 1em;
-        position: sticky;
-        top: 0;
         background-color: white;
+
+        li{
+            font-size: .8em;
+            font-family: Martian Mono, monospace;
+        }
+
+        .login{
+            color: #364bf7;
+
+            &:hover{
+                color: black;
+            }
+        }
+
+        .border-a{
+            border: 1px solid black;
+            padding: 1em;
+        }
 
         svg{
             height: 3em;
             margin-left: 1em;
+            
+            @media(min-width:900px){
+                height: 5em;
+            }
         }
 
         @media(min-width:700px){
@@ -49,19 +71,6 @@ header{
         }
     }
 
-    section{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        border-bottom: .07em solid black;
-        padding-block: 3em;
-        p{
-            text-align: center;
-            max-width: 80%;
-            line-height: 1.5em;
-
-        }
-    }
 
     a{
         text-decoration: none;
@@ -79,11 +88,27 @@ header{
 
 .navigation{
     display: none;
-    font-family: Martian Mono, monospace;
+    width: 60%;
+
     @media(min-width:700px){
+        padding-bottom: 3em;
         display: flex;
+        flex-wrap: wrap;
         gap: 1em;
     }
+}
+
+.navigation-right{
+    display: none;
+    padding-right: 1em;
+
+    @media(min-width:700px){
+        display: flex;
+        justify-content: flex-end;
+        gap: 1em;
+        width: 40%;
+    }
+
 }
 
 .ham-button{
@@ -140,8 +165,33 @@ main{
     a{
         text-decoration: none;
         color: #364bf7;
+
         &:hover{
             color: black;
+        }
+    }
+
+    .page-title{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-bottom: .07em solid black;
+        padding-block: 3em;
+
+        a{
+            color: black;
+
+            &:hover{
+                color: #364bf7;
+            }
+        }
+
+
+        p{
+            text-align: center;
+            max-width: 80%;
+            line-height: 1.5em;
+
         }
     }
 
@@ -149,12 +199,57 @@ main{
 
 .add-vacature{
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    gap: 1em;
+    /* justify-content: center; */
+    align-items: center;
+    /* padding-bottom: 3em; */
+
+    .add-button{
+        display: flex;
+        border: none;
+        background: none;
+        gap: .3em;
+        font-weight: 600;
+        font-size: 1.2em;
+        cursor: pointer;
+        color: #364bf7;
+
+        &:hover{
+            color: black;
+        }
+        
+        @media(min-width:500px){
+            font-size: 2em;
+        }
+    }
+}
+
+#mypopover{
+    padding: 2em;
+    gap: 1em;
+
+    form{
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+
+        button{
+            width: 100%;
+            margin-bottom: 1em;
+        }
+    }
+
+    label{
+        /* min-width: 50px; */
+        padding-block: 1em;
+    }
 }
 
 .vacature{
     display: grid;
-    grid-template-columns: 2fr 3fr;
+    grid-template-columns: 2.5fr 3fr;
+    /* max-width: 300px; */
 
     h2{
         font-weight: 400;
@@ -169,20 +264,24 @@ main{
             font-size: 2em;
             min-width: 550px;
         }
-    
-        
     }
 
     p{
+        font-family: Martian Mono, monospace;
 
         @media(min-width:900px){
             min-width: 100px;
         }
     }
 
-    @media(min-width:800px){
+    a{
+        font-family: Martian Mono, monospace;
+    }
+
+    @media(min-width:810px){
         display: flex;
         align-items: center;
         justify-content: space-between;
+        max-width: none;
     }
 }
