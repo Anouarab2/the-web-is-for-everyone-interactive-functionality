@@ -47,8 +47,6 @@ app.get('/toevoegen', async function (request, response) {
 })
 
 
-
-
 app.post('/toevoegen', async function (request, response)  {
   const { title, locatie, hours } = request.body;
 
@@ -59,7 +57,7 @@ app.post('/toevoegen', async function (request, response)  {
     body: JSON.stringify({ title, locatie, hours })
   });
 
-  response.send('Vacature added!');
+  response.redirect(303,'/');
 });
 
 
